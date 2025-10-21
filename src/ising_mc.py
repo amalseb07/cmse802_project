@@ -46,7 +46,7 @@ def run_simulation(L=32, T=2.5, J=1.0, n_steps=5000, equilibration=1000):
 # Data Generation
 # -------------------------------
 
-def generate_dataset(L=32, temps=np.linspace(1.0, 4.0, 10), out_dir="../data", n_samples=200):
+def generate_dataset(L=32, temps=np.linspace(1.0, 5.0, 11), out_dir="../data", n_samples=200):
     """Generate Ising configurations for a range of temperatures."""
     os.makedirs(out_dir, exist_ok=True)
     for T in tqdm(temps, desc="Generating data"):
@@ -55,5 +55,5 @@ def generate_dataset(L=32, temps=np.linspace(1.0, 4.0, 10), out_dir="../data", n
     print(" Data generation complete!")
 
 if __name__ == "__main__":
-    generate_dataset(L=32, temps=np.linspace(1.0, 4.0, 10), n_samples=1000)
+    generate_dataset(L=32, temps=np.linspace(1.0, 5.0, 11), n_samples=1000)
 
