@@ -31,7 +31,7 @@ from tensorflow.keras import layers,models,callbacks
 import os
 
 
-def buld_cnn():
+def build_cnn():
     """
     Build a simple Convolutional Neural Network (CNN) for binary phase classification.
     
@@ -71,7 +71,7 @@ def train_model():
     
 
 
-    model = buld_cnn()
+    model = build_cnn()
 
     X_train,X_val,X_test,y_train,y_val,y_test= load_and_prepare_phase_data("../data")
 
