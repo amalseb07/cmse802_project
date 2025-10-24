@@ -1,3 +1,29 @@
+"""
+train_cnn_phase_classifier.py
+-----------------------------
+This module defines and trains a Convolutional Neural Network (CNN) to classify 
+2D Ising model spin configurations into ordered and disordered phases.
+
+The model is trained using datasets prepared by the `load_and_prepare_phase_data` 
+function, which provides normalized lattice configurations labeled according 
+to the critical temperature (T_c).
+
+Key features:
+- CNN architecture for binary phase classification.
+- Includes dropout regularization and early stopping.
+- Automatically saves the best-performing model (based on validation loss) into `best_model/best_cnn_model.h5`.
+- Saves training history for later visualization and analysis into `history/cnn_training_history.npy`..
+
+Author - Amal Sebastian
+Date - October 2025
+
+"""
+
+
+
+
+
+
 import numpy as np
 from preprocess_data import load_and_prepare_phase_data
 import tensorflow as tf 
@@ -6,6 +32,20 @@ import os
 
 
 def buld_cnn():
+    """
+    Build a simple Convolutional Neural Network (CNN) for binary phase classification.
+    
+    Returns
+    -------
+    model : tf.keras.Model
+        Compiled CNN model ready for training.
+    """
+    
+    # --------------------------------------------------------
+    # (a) Define input shape and layer structure
+    # --------------------------------------------------------
+
+
     input_shape=(32,32,1)
     
     model =models.Sequential([
@@ -25,16 +65,23 @@ def buld_cnn():
 
 
 def train_model():
+    """
+    Train the CNN on Ising model configurations and save the best-performing model.
+    """
+    
+
 
     model = buld_cnn()
 
     X_train,X_val,X_test,y_train,y_val,y_test= load_and_prepare_phase_data("../data")
 
+
+    # checkpoint to save the best minimum  validation point
     checkpoint_cb = callbacks.ModelCheckpoint(
         filepath="best_model/best_cnn_model.h5", save_best_only=True,save_weights_only= False,monitor="val_loss", mode="min", verbose=1
     )
 
-    
+    # stops if the validation doesnt improve over a patience range.
     earlystop_cb = callbacks.EarlyStopping(
         monitor="val_loss", patience=10, restore_best_weights=True, verbose=1
     )
