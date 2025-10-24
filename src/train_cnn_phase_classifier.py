@@ -83,7 +83,7 @@ def train_model():
 
     # stops if the validation doesnt improve over a patience range.
     earlystop_cb = callbacks.EarlyStopping(
-        monitor="val_loss", patience=10, restore_best_weights=True, verbose=1
+        monitor="val_loss", patience=50, restore_best_weights=True, verbose=1
     )
 
     model.compile(optimizer='adam',
