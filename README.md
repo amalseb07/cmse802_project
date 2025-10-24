@@ -41,5 +41,5 @@ cmse802_project/
 ## Running the Code
 - To **generate Ising data**: run the Monte Carlo simulation **ising_mc.py** script in `src/`. The generated data is preprocessed and ready for CNN taining using **preprocess_data.py** (no need to run this, goes as a header file in the train script).
 - To **train the CNN**: run the training script **train_cnn_phase_classifier.py** in `src/` . This trains the model to classify between ordered and disordered phase.
-- To **analyze results or visualize data**: use the notebooks in `notebooks/`. The **visalize_lattice.ipynb** is used to look at the lattice generated using  **ising_mc.py**.
-- Final plots and trained models will be saved in `results/`. Training loss and validation curve in **history.ipynb**
+- To **analyze results or visualize data**: use the notebooks in `notebooks/`. The **visalize_lattice.ipynb** is used to look at the lattice generated using  **ising_mc.py**.Training loss and validation curve in **history.ipynb**
+- Final plots, chosen trained models are saved in the results/ directory
