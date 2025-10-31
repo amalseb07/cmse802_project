@@ -28,6 +28,7 @@ import numpy as np
 from preprocess_data import load_and_prepare_phase_data
 import tensorflow as tf 
 from tensorflow.keras import layers,models,callbacks
+from tensorflow.keras.optimizers import Adam
 import os
 
 
@@ -82,11 +83,13 @@ def train_model():
     )
 
     # stops if the validation doesnt improve over a patience range.
-    earlystop_cb = callbacks.EarlyStopping(
-        monitor="val_loss", patience=50, restore_best_weights=True, verbose=1
-    )
+   # earlystop_cb = callbacks.EarlyStopping(
+   #     monitor="val_loss", patience=50, restore_best_weights=True, verbose=1
+   # )
 
-    model.compile(optimizer='adam',
+    optimizer = Adam(learning_rate=1e-5)
+     
+    model.compile(optimizer=optimizer,
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
@@ -94,10 +97,10 @@ def train_model():
         # Train model
     history = model.fit(
         X_train, y_train,
-        epochs=100,
+        epochs=500,
         batch_size=32,
         validation_data=(X_val, y_val),
-        callbacks=[checkpoint_cb, earlystop_cb],
+        callbacks=[checkpoint_cb],
         verbose=1
     )
 
