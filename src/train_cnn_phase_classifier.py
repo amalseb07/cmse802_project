@@ -74,7 +74,17 @@ def train_model():
 
     model = build_cnn()
 
-    X_train,X_val,X_test,y_train,y_val,y_test= load_and_prepare_phase_data("../data")
+    #X_train,X_val,X_test,y_train,y_val,y_test= load_and_prepare_phase_data("../data")
+
+    print("Reading in data...")
+    # Load the data from npz files
+    Train = np.load("../preprocessed_data/train_data.npz")
+    X_train = Train['X_train']
+    y_train = Train['y_train']
+
+    Val = np.load("../preprocessed_data/val_data.npz")
+    X_val = Val['X_val']
+    y_val = Val['y_val']
 
 
     # checkpoint to save the best minimum  validation point
@@ -97,7 +107,7 @@ def train_model():
         # Train model
     history = model.fit(
         X_train, y_train,
-        epochs=500,
+        epochs=300,
         batch_size=32,
         validation_data=(X_val, y_val),
         callbacks=[checkpoint_cb],

@@ -27,6 +27,15 @@ Date - October 2025
 import numpy as np
 import glob
 from sklearn.model_selection import train_test_split
+import os 
+
+
+
+# Change directory to the location of this script
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+
 
 
 
@@ -75,6 +84,16 @@ def load_and_prepare_phase_data(data_dir="../data/",L=32,T_c=2.69):
 
     X = X[...,np.newaxis]
 
+
+    # Shuffle the data
+    indices = np.arange(X.shape[0])
+    np.random.shuffle(indices)
+
+    X = X[indices]
+    y =y[indices]
+
+
+
      # Split into train/test first, then split train into train/val
     X_train, X_temp, y_train, y_temp = train_test_split(
         X, y, test_size=0.3, stratify=y, random_state=42
@@ -88,8 +107,11 @@ def load_and_prepare_phase_data(data_dir="../data/",L=32,T_c=2.69):
     print(f"Train: {y_train.shape},Tval: {y_val.shape}, Test: {y_test.shape}")
     print(f"Class balance: Ordered={np.sum(y==0)}, Disordered={np.sum(y==1)}")
 
+    np.savez("../preprocessed_data/train_data.npz", X_train = X_train, y_train = y_train)
+    np.savez("../preprocessed_data/val_data.npz", X_val = X_val, y_val = y_val)
+    np.savez("../preprocessed_data/test_data.npz", X_test = X_test, y_test = y_test)
 
-    return X_train, X_val, X_test, y_train, y_val, y_test
+    
 
 if __name__ == "__main__":
     load_and_prepare_phase_data("../data")
