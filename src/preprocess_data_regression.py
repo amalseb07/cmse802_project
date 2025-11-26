@@ -1,8 +1,28 @@
+"""
+preprocess_data_regression.py
+------------------------------
+This module provides functionality to load and preprocess 2D Ising model 
+lattice configurations for temperature regressiong tasks using machine learning.
+
+It reads saved Ising spin configurations (.npy files) generated at different 
+temperatures, labels them based on the temperature they were generated, normalizes 
+the spin values, and splits the dataset into training, validation, and test sets.
+
+Key features:
+- Loads Ising configurations from .npy files by temperature.
+- Assigns labels depending on which temperature the lattice was generated.
+- Normalizes spins from {-1, 1} to {0, 1}.
+- Expands data dimensions to match CNN input requirements.
+- Performs stratified train/validation/test splitting for balanced representation.
+- Automatically saves the data at preprocessed_data_reg/ as train_data.npz, val_data.npz and test_data.npz
+
+
+Author - Amal Sebastian
+Date - October 2025
 
 
 
-
-
+"""
 
 import numpy as np
 import glob
@@ -19,7 +39,7 @@ os.chdir(dname)
 
 
 
-def load_and_prepare_reg_data(data_dir="../data/",L=32,T_c=2.69):
+def load_and_prepare_reg_data(data_dir="../data/",L=32):
     """
     Load and preprocess 2D Ising model configurations for phase classification.
 
@@ -29,28 +49,20 @@ def load_and_prepare_reg_data(data_dir="../data/",L=32,T_c=2.69):
         Directory containing .npy configuration files.
     L : int
         Linear lattice size.
-    T_c : float
-        Critical temperature separating ordered and disordered phases.
 
-    Returns
-    -------
-    X_train, X_val, X_test : np.ndarray
-        Normalized lattice configurations split for training, validation, and testing.
-    y_train, y_val, y_test : np.ndarray
-        Corresponding binary phase labels (0 = ordered, 1 = disordered).
-    """
+    """    
 
 
     
 
-    filepath = sorted(glob.glob(f"{data_dir}/ising_L{L}_T*.npy"))         # formated string thats why brackets
-                                                                          # just list of names
+    filepath = sorted(glob.glob(f"{data_dir}/ising_L{L}_T*.npy"))         
+                                                                          
     X =[]
     y=[]
 
     for files in filepath:
         T= float(files.split("_T")[-1].replace(".npy",""))         
-        configs = np.load(files)                                 # assigning labels as per the heading , 0 =ordered ,1 = disordered
+        configs = np.load(files)                                 # assigning labels as per the temperature
         X.append(configs)
         y.append(np.full(configs.shape[0],T))
 

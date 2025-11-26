@@ -10,7 +10,6 @@ The predictions are done choosing different set of cuts to determine what phase 
 means prediction >0.3 is considered of phase 1 and <=0.3 is considered phase 0.
 
 
-
 Key features:
 - Predict the phases on the test set for different cuts
 - Automatically saves the prediction result for different cuts at `predictions/../predictions/predict_cut_{cut_value}.npz`.
@@ -41,6 +40,9 @@ os.chdir(dname)
 
 
 def load_and_apply_model():
+
+    # Predicts the test data based on different cuts
+
     print("Loading model...")
 
     # Load model

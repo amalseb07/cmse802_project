@@ -1,5 +1,5 @@
 """
-load_and_prepare_phase_data.py
+preprocess_data.py
 ------------------------------
 This module provides functionality to load and preprocess 2D Ising model 
 lattice configurations for phase classification tasks using machine learning.
@@ -16,7 +16,8 @@ Key features:
 - Normalizes spins from {-1, 1} to {0, 1}.
 - Expands data dimensions to match CNN input requirements.
 - Performs stratified train/validation/test splitting for balanced phase representation.
-- No need to run this , this goes as header file for the train_cnn_phase_classifier.py
+- Automatically saves the data at preprocessed_data/ as train_data.npz, val_data.npz and test_data.npz
+
 
 Author - Amal Sebastian
 Date - October 2025
@@ -39,7 +40,7 @@ os.chdir(dname)
 
 
 
-def load_and_prepare_phase_data(data_dir="../data/",L=32,T_c=2.69):
+def load_and_prepare_phase_data(data_dir="../data/",L=32,T_c=2.50):
     """
     Load and preprocess 2D Ising model configurations for phase classification.
 
@@ -52,12 +53,6 @@ def load_and_prepare_phase_data(data_dir="../data/",L=32,T_c=2.69):
     T_c : float
         Critical temperature separating ordered and disordered phases.
 
-    Returns
-    -------
-    X_train, X_val, X_test : np.ndarray
-        Normalized lattice configurations split for training, validation, and testing.
-    y_train, y_val, y_test : np.ndarray
-        Corresponding binary phase labels (0 = ordered, 1 = disordered).
     """
 
 

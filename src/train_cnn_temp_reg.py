@@ -1,18 +1,17 @@
 """
-train_cnn_phase_classifier.py
+train_cnn_temp_reg.py
 -----------------------------
-This module defines and trains a Convolutional Neural Network (CNN) to classify 
-2D Ising model spin configurations into ordered and disordered phases.
+This module defines and trains a Convolutional Neural Network (CNN) to find the temperature of
+2D Ising model spin configurations.
 
-The model is trained using datasets prepared by the `load_and_prepare_phase_data` 
-function, which provides normalized lattice configurations labeled according 
-to the critical temperature (T_c).
+The model is trained using datasets obtained from preprocess_data_reg/, which provides normalized lattice configurations labeled at the temperature 
+they were generated at.
 
 Key features:
-- CNN architecture for binary phase classification.
-- Includes dropout regularization and early stopping.
-- Automatically saves the best-performing model (based on validation loss) into `best_model/best_cnn_model.h5`.
-- Saves training history for later visualization and analysis into `history/cnn_training_history.npy`..
+- CNN architecture for regression
+- Includes dropout regularization .
+- Automatically saves the best-performing model (based on validation loss) into `best_model/best_cnn_model_reg.h5`.
+- Saves training history for later visualization and analysis into `history/cnn_training_history_reg.npy`..
 
 Author - Amal Sebastian
 Date - October 2025
@@ -34,7 +33,7 @@ import os
 
 def build_cnn():
     """
-    Build a simple Convolutional Neural Network (CNN) for binary phase classification.
+    Build a simple Convolutional Neural Network (CNN) for Linear Regression
     
     Returns
     -------

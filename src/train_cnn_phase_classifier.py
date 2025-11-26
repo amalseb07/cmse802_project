@@ -4,8 +4,7 @@ train_cnn_phase_classifier.py
 This module defines and trains a Convolutional Neural Network (CNN) to classify 
 2D Ising model spin configurations into ordered and disordered phases.
 
-The model is trained using datasets prepared by the `load_and_prepare_phase_data` 
-function, which provides normalized lattice configurations labeled according 
+The model is trained using datasets obtained from preprocess_data/, which provides normalized lattice configurations labeled according 
 to the critical temperature (T_c).
 
 Key features:
