@@ -25,7 +25,7 @@ data/
 # ----------------------------
 # Model checkpoints and results
 # ----------------------------
-results/
+#results/
 *.pt
 *.pth
 *.ckpt
